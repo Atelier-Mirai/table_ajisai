@@ -1,0 +1,37 @@
+= form_with(model: schedule, local: true) do |form|
+  - if schedule.errors.any?
+    #error_explanation
+      h2
+        = pluralize(schedule.errors.count, "error")
+        |  prohibited this schedule from being saved:
+      ul
+        - schedule.errors.full_messages.each do |message|
+          li
+            = message
+  table[cellspacing="0" cellpadding="0"]
+    tr
+      th.border_n[align="center" bgcolor="#e0e0e0"]
+        | 開催日時
+      th.border_l[align="center" bgcolor="#e0e0e0"]
+        | 開始時間
+      th.border_l[align="center" bgcolor="#e0e0e0"]
+        | 終了時間
+      th.border_l[align="center" bgcolor="#e0e0e0"]
+        | 開催場所
+      th.border_l[align="center" bgcolor="#e0e0e0"]
+        | 詳細
+      th.border_l[colspan="3" align="center" bgcolor="#e0e0e0"]
+        | アクション
+    tr
+      td.border_t[align="center"]
+        = form.date_select :ymd, { class: "btn-border" }
+      td.border_tl[align="center"]
+        = form.time_select :start, {default: Date.today + 9.hour}
+      td.border_tl[align="center"]
+        = form.time_select :end, {default: Date.today + 13.hour}
+      td.border_tl[align="center"]
+        = form.text_field :place
+      td.border_tl[align="center"]
+        = form.text_area :addcomment
+      td.border_tl[align="center"]
+        = form.submit

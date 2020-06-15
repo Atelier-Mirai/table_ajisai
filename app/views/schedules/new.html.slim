@@ -1,0 +1,34 @@
+h1
+  | イベント一覧
+table
+  thead
+    tr
+      th
+        | 開催日時・場所
+      th
+        | コメント
+      th
+        | アクション
+  tbody
+    - @schedules.each do |schedule|
+      tr
+        td
+          = l schedule.ymd
+          br
+          = schedule.start.strftime('%H:%M')
+          |  ～
+          = schedule.end.strftime('%H:%M')
+          br
+          = schedule.place
+        td
+          = simple_format schedule.addcomment
+        td
+          = link_to '編集', edit_schedule_path(schedule), class: "btn-border", style: "margin-right: 1rem;"
+          = link_to '削除', schedule, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: "btn-border"
+
+h1
+  | イベント新規作成
+= render 'form', schedule: @schedule
+
+div style="clear: both; padding-top: 10px;"
+  = link_to '日程一覧に戻る', root_path, { class: "btn-border" }

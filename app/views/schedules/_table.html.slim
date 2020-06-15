@@ -1,0 +1,48 @@
+#left_column
+  table[cellspacing="0" cellpadding="0"]
+    tr
+      th.border_n[rowspan="2" width="30%" bgcolor="#e0e0e0"]
+        | 日時・場所
+      td.border_l[colspan="4" align="center" bgcolor="#e0e0e0"]
+        | コメント
+    tr
+      td.border_tl[align="center" bgcolor="#99ffcc"]
+        | 参加
+      td.border_tl[align="center" bgcolor="#ffffcc"]
+        | 多分
+      td.border_tl[align="center" bgcolor="#d3d3d3"]
+        | 未定
+      td.border_tl[align="center" bgcolor="#ffb6c1"]
+        | 欠席
+    - @schedules.each do |schedule|
+      tr
+        td.border_t[rowspan="2"]
+          - weeks = ["月","火","水","木","金","土","日"]
+          - index = schedule.ymd.strftime("%u").to_i
+          = link_to schedule.ymd.strftime("%Y年%m月%d日(#{weeks[index - 1]})"), schedule
+          br
+          = schedule.start.strftime('%H:%M')
+          |  ～
+          = schedule.end.strftime('%H:%M')
+          br
+          = schedule.place
+        td.border_tl[colspan="4"]
+          = simple_format schedule.addcomment
+
+      tr
+        td.border_tl[align="center"]
+          / = @answers_sanka&.count
+          = schedule.answer.sanka.count
+        td.border_tl[align="center"]
+          = schedule.answer.tabun.count
+          / = @answers_tabun&.count
+        td.border_tl[align="center"]
+          = schedule.answer.mitei.count
+          / = @answers_mitei&.count
+        td.border_tl[align="center"]
+          = schedule.answer.kesseki.count
+          / = @answers_kesseki&.count
+  p
+    = @caution
+  div[style="padding: 20px 0;"]
+    = link_to '日程を作成する（※管理者用）', new_schedule_path, { class: "btn-border" }

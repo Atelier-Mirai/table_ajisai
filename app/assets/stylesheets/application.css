@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+
+tr.active {
+  background: #fef4f4; /* 桜色 */
+}

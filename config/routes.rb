@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "/" => "schedules#index"
-  resources :answers
-  resources :schedules
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root "schedules#show"
+  resources :schedules, only: [:show, :new, :edit, :create, :update, :destroy] do
+    resources :answers, only: [:create, :destroy]
+  end
 end

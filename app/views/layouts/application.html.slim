@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title
+      | Team
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header
+      | ヘッダー
+
+    #column
+      p#notice
+        = notice
+      = yield
+
+    footer
+      | フッター
+
+    / debug情報の表示
+    = debug(params) if Rails.env.development?
